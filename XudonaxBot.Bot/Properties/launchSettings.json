@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "XudonaxBot": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

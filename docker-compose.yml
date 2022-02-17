@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  xudonaxbot:
+    image: ${DOCKER_REGISTRY-}xudonaxbot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      BotOptions__Token: ''
