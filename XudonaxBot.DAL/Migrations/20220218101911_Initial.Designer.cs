@@ -2,22 +2,24 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using XudonaxBot.Bot.Models;
+using XudonaxBot.DAL;
 
 #nullable disable
 
-namespace XudonaxBot.Migrations
+namespace XudonaxBot.DAL.Migrations
 {
     [DbContext(typeof(BotContext))]
-    partial class BotContextModelSnapshot : ModelSnapshot
+    [Migration("20220218101911_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
 
-            modelBuilder.Entity("XudonaxBot.Models.Database.Server", b =>
+            modelBuilder.Entity("XudonaxBot.DAL.Entities.Server", b =>
                 {
                     b.Property<Guid>("ServerId")
                         .ValueGeneratedOnAdd()

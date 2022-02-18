@@ -1,4 +1,4 @@
-﻿namespace XudonaxBot.Bot.Models.Database
+﻿namespace XudonaxBot.DAL.Entities
 {
     public class Server
     {

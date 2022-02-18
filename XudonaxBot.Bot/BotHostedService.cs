@@ -35,6 +35,9 @@ namespace XudonaxBot.Bot
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(_options.Value.Token))
+                throw new ArgumentNullException(nameof(_options.Value.Token), "No token found, exiting!");
+
             EventRegistration();
 
             await _client.LoginAsync(TokenType.Bot, _options.Value.Token);

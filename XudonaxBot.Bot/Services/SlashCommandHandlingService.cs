@@ -1,15 +1,15 @@
 ﻿using Discord.WebSocket;
-using XudonaxBot.Bot.Repositories.Interfaces;
 using XudonaxBot.Bot.Services.Interfaces;
 using XudonaxBot.Commands.Interfaces;
+using XudonaxBot.DAL.Repositories.Interfaces;
 
 namespace XudonaxBot.Bot.Services
 {
     internal class SlashCommandHandlingService : ISlashCommandHandlingService
     {
-        private readonly IReadOnlyRepository<ISlashCommand> _commandRepository;
+        private readonly IReadOnlyRepository<ISlashCommand, string> _commandRepository;
 
-        public SlashCommandHandlingService(IReadOnlyRepository<ISlashCommand> commandRepository)
+        public SlashCommandHandlingService(IReadOnlyRepository<ISlashCommand, string> commandRepository)
         {
             _commandRepository = commandRepository;
         }
@@ -17,8 +17,11 @@ namespace XudonaxBot.Bot.Services
         public async Task Handle(SocketSlashCommand command)
         {
             var name = command.CommandName;
+            var implementation = _commandRepository.Get(name);
 
-            await _commandRepository.Get(name).HandleAsync(command);
+            if (implementation == null) return;
+
+            await implementation.HandleAsync(command);
         }
     }
 }

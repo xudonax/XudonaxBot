@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace XudonaxBot.Migrations
+namespace XudonaxBot.DAL.Migrations
 {
     public partial class Initial : Migration
     {

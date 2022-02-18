@@ -4,14 +4,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using XudonaxBot.Bot.Models;
 using XudonaxBot.Bot.Models.Options;
 using XudonaxBot.Bot.Repositories;
-using XudonaxBot.Bot.Repositories.Interfaces;
 using XudonaxBot.Bot.Services;
 using XudonaxBot.Bot.Services.Interfaces;
 using XudonaxBot.Commands;
 using XudonaxBot.Commands.Interfaces;
+using XudonaxBot.DAL;
+using XudonaxBot.DAL.Repositories.Interfaces;
 
 namespace XudonaxBot.Bot
 {
@@ -51,14 +51,17 @@ namespace XudonaxBot.Bot
 
             services
                 .AddSingleton<ILoggingService, LoggingService>()
-                .AddSingleton<IReadOnlyRepository<ISlashCommand>, SlashCommandRepository>()
+                .AddSingleton<IReadOnlyRepository<ISlashCommand, string>, SlashCommandRepository>()
                 .AddSingleton<DiscordSocketClient>();
 
             services
                 .AddTransient<ISlashCommandRegistrationService, SlashCommandRegistrationService>()
                 .AddTransient<ISlashCommandHandlingService, SlashCommandHandlingService>();
 
-            services.AddDbContext<BotContext>(options => options.UseSqlite(context.Configuration.GetConnectionString("BotContext")));
+            services.AddDbContext<BotContext>(options => 
+                options.UseSqlite(
+                    context.Configuration.GetConnectionString("BotContext"),
+                    b => b.MigrationsAssembly(typeof(BotContext).Assembly.FullName)));
 
             // Add hosted service(s), should be the last line(s)
             services.AddHostedService<BotHostedService>();

@@ -5,6 +5,6 @@ services:
     image: ${DOCKER_REGISTRY-}xudonaxbot
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: XudonaxBot.Bot/Dockerfile
     environment:
-      BotOptions__Token: ''
+      - BotOptions__Token=${BOT_TOKEN}

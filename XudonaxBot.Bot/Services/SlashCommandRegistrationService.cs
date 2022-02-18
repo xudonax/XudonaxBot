@@ -2,19 +2,19 @@
 using Discord.Net;
 using Discord.WebSocket;
 using Microsoft.Extensions.Logging;
-using XudonaxBot.Bot.Repositories.Interfaces;
 using XudonaxBot.Bot.Services.Interfaces;
 using XudonaxBot.Commands.Interfaces;
+using XudonaxBot.DAL.Repositories.Interfaces;
 
 namespace XudonaxBot.Bot.Services
 {
     internal class SlashCommandRegistrationService : ISlashCommandRegistrationService
     {
         private readonly DiscordSocketClient _client;
-        private readonly IReadOnlyRepository<ISlashCommand> _commandRepository;
+        private readonly IReadOnlyRepository<ISlashCommand, string> _commandRepository;
         private readonly ILogger _logger;
 
-        public SlashCommandRegistrationService(DiscordSocketClient client, IReadOnlyRepository<ISlashCommand> commandRepository, ILogger<SlashCommandRegistrationService> logger)
+        public SlashCommandRegistrationService(DiscordSocketClient client, IReadOnlyRepository<ISlashCommand, string> commandRepository, ILogger<SlashCommandRegistrationService> logger)
         {
             _client = client;
             _logger = logger;

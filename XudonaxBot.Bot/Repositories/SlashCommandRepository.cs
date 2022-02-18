@@ -1,9 +1,10 @@
-﻿using XudonaxBot.Bot.Repositories.Interfaces;
+﻿using System.Linq.Expressions;
 using XudonaxBot.Commands.Interfaces;
+using XudonaxBot.DAL.Repositories.Interfaces;
 
 namespace XudonaxBot.Bot.Repositories
 {
-    internal class SlashCommandRepository : IReadOnlyRepository<ISlashCommand>
+    public class SlashCommandRepository : IReadOnlyRepository<ISlashCommand, string>
     {
         private readonly Dictionary<string, ISlashCommand> _commandHandlers;
 
@@ -16,6 +17,8 @@ namespace XudonaxBot.Bot.Repositories
                 _commandHandlers.Add(command.Name, command);
             }
         }
+
+        public IEnumerable<ISlashCommand> Find(Expression<Func<ISlashCommand, bool>> expression) => _commandHandlers.Values.Where(expression.Compile());
 
         public ISlashCommand Get(string name) => _commandHandlers[name];
 
