@@ -8,3 +8,4 @@ services:
       dockerfile: XudonaxBot.Bot/Dockerfile
     environment:
       - BotOptions__Token=${BOT_TOKEN}
+      - BotOptions__TenorApiKey=${TENOR_API_KEY}

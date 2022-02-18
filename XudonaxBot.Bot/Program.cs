@@ -4,14 +4,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using XudonaxBot.Bot.Extensions;
 using XudonaxBot.Bot.Models.Options;
 using XudonaxBot.Bot.Repositories;
 using XudonaxBot.Bot.Services;
 using XudonaxBot.Bot.Services.Interfaces;
-using XudonaxBot.Commands;
+using XudonaxBot.Commands.Implementations;
 using XudonaxBot.Commands.Interfaces;
 using XudonaxBot.DAL;
 using XudonaxBot.DAL.Repositories.Interfaces;
+using XudonaxBot.External.Tenor;
 
 namespace XudonaxBot.Bot
 {
@@ -47,7 +49,14 @@ namespace XudonaxBot.Bot
 
             services.Configure<BotOptions>(context.Configuration.GetRequiredSection("BotOptions"));
 
-            services.AddSingleton<ISlashCommand, PingCommand>();
+            //services
+            //    .AddTransient<ISlashCommand, PingCommand>()
+            //    .AddTransient<ISlashCommand, PongCommand>()
+            //    .AddTransient<ISlashCommand, CatgirlCommand>()
+            //    .AddTransient<ISlashCommand, HeadpatCommand>()
+            //    .AddTransient<ISlashCommand, HugCommand>();
+
+            services.RegisterAllImplementationsOf<ISlashCommand>(typeof(ISlashCommand).Assembly);
 
             services
                 .AddSingleton<ILoggingService, LoggingService>()
@@ -56,7 +65,11 @@ namespace XudonaxBot.Bot
 
             services
                 .AddTransient<ISlashCommandRegistrationService, SlashCommandRegistrationService>()
-                .AddTransient<ISlashCommandHandlingService, SlashCommandHandlingService>();
+                .AddTransient<ISlashCommandHandlingService, SlashCommandHandlingService>()
+                .AddTransient<ITenorService, TenorService>();
+
+            services
+                .AddHttpClient<ITenorService, TenorService>();
 
             services.AddDbContext<BotContext>(options => 
                 options.UseSqlite(

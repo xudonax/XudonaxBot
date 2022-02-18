@@ -11,7 +11,7 @@ namespace XudonaxBot.Bot
     public class BotHostedService : IHostedService
     {
         private readonly DiscordSocketClient _client;
-        private readonly IOptions<BotOptions> _options;
+        private readonly BotOptions _botOptions;
         private readonly ILoggingService _logging;
         private readonly ISlashCommandRegistrationService _registrationService;
         private readonly ISlashCommandHandlingService _commandHandlingService;
@@ -26,7 +26,7 @@ namespace XudonaxBot.Bot
             ILogger<BotHostedService> logger)
         {
             _client = client;
-            _options = options;
+            _botOptions = options.Value;
             _logging = logging;
             _registrationService = registrationService;
             _commandHandlingService = commandHandlingService;
@@ -35,12 +35,12 @@ namespace XudonaxBot.Bot
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(_options.Value.Token))
-                throw new ArgumentNullException(nameof(_options.Value.Token), "No token found, exiting!");
+            if (string.IsNullOrWhiteSpace(_botOptions.Token))
+                throw new ArgumentNullException(nameof(_botOptions.Token), "No token found, exiting!");
 
             EventRegistration();
 
-            await _client.LoginAsync(TokenType.Bot, _options.Value.Token);
+            await _client.LoginAsync(TokenType.Bot, _botOptions.Token);
             await _client.StartAsync();
         }
 

@@ -3,11 +3,11 @@ using XudonaxBot.Commands.Interfaces;
 
 namespace XudonaxBot.Commands.Implementations
 {
-    public class PingCommand : ISlashCommand
+    public class PongCommand : ISlashCommand
     {
-        public string Name => "ping";
+        public string Name => "pong";
 
-        public string Description => "Send a ping command to the bot";
+        public string Description => "Send a pong command to the bot";
 
         public async Task HandleAsync(SocketSlashCommand command)
         {

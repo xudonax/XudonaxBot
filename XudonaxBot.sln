@@ -11,6 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XudonaxBot.Commands", "Xudo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XudonaxBot.DAL", "XudonaxBot.DAL\XudonaxBot.DAL.csproj", "{40C9DBDD-E6FC-444C-A6FB-8036E2CDDE93}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B505A0E-F631-49DB-9B3E-AC4A3E080F88}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XudonaxBot.External.Tenor", "XudonaxBot.External.Tenor\XudonaxBot.External.Tenor.csproj", "{9711B658-96A5-43D8-BC99-6C0D8C034524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XudonaxBot.Options", "XudonaxBot.Options\XudonaxBot.Options.csproj", "{04B8718F-FFA0-4CFF-90D0-1A327379A5D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +44,14 @@ Global
 		{40C9DBDD-E6FC-444C-A6FB-8036E2CDDE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40C9DBDD-E6FC-444C-A6FB-8036E2CDDE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40C9DBDD-E6FC-444C-A6FB-8036E2CDDE93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9711B658-96A5-43D8-BC99-6C0D8C034524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9711B658-96A5-43D8-BC99-6C0D8C034524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9711B658-96A5-43D8-BC99-6C0D8C034524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9711B658-96A5-43D8-BC99-6C0D8C034524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B8718F-FFA0-4CFF-90D0-1A327379A5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B8718F-FFA0-4CFF-90D0-1A327379A5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B8718F-FFA0-4CFF-90D0-1A327379A5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B8718F-FFA0-4CFF-90D0-1A327379A5D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,7 +29,9 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
@@ -37,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\XudonaxBot.Commands\XudonaxBot.Commands.csproj" />
     <ProjectReference Include="..\XudonaxBot.DAL\XudonaxBot.DAL.csproj" />
+    <ProjectReference Include="..\XudonaxBot.Options\XudonaxBot.Options.csproj" />
   </ItemGroup>
 
 </Project>
