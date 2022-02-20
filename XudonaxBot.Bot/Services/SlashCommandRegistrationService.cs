@@ -45,7 +45,7 @@ namespace XudonaxBot.Bot.Services
 
             foreach (var commandHandler in _commandRepository.GetAll())
             {
-                if (registeredCommandNames.Contains(commandHandler.Name)) continue;
+                //if (registeredCommandNames.Contains(commandHandler.Name)) continue;
                 await RegisterCommand(guild, commandHandler);
             }
         }
@@ -55,6 +55,12 @@ namespace XudonaxBot.Bot.Services
             var commandBuilder = new SlashCommandBuilder()
                     .WithName(commandHandler.Name)
                     .WithDescription(commandHandler.Description);
+
+            if (commandHandler is IHasSubOptions commandSubOptions)
+            {
+                foreach (var subOption in commandSubOptions.SubOptions) 
+                    commandBuilder = commandBuilder.AddOption(subOption);
+            }
 
             var command = commandBuilder.Build();
 

@@ -12,7 +12,7 @@ namespace XudonaxBot.Commands.Implementations
 {
     public class HugCommand : ISlashCommand
     {
-        private const string CatgirlQuery = "anime hug";
+        private const string SearchQuery = "anime hug";
 
         private readonly ITenorService _service;
 
@@ -25,26 +25,47 @@ namespace XudonaxBot.Commands.Implementations
 
         public string Description => "Get yourself a nice warm hug";
 
+        public IEnumerable<SlashCommandOptionBuilder> SubOptions
+        {
+            get
+            {
+                yield return new SlashCommandOptionBuilder()
+                    .WithName("user")
+                    .WithDescription("Who do you want to hug?")
+                    .WithRequired(true)
+                    .WithType(ApplicationCommandOptionType.User);
+            }
+        }
+
         public async Task HandleAsync(SocketSlashCommand command)
         {
-            var gif = await _service.GetRandomGifFor(CatgirlQuery);
+            var gif = await _service.GetRandomGifFor(SearchQuery);
             
             if (gif != null)
             {
+                var user = command.User;
+
+                if (command.Data.Options.Count > 0)
+                {
+                    var userCommand = command.Data.Options.Where(x => x.Name == "user").FirstOrDefault();
+                    if (userCommand != null && userCommand.Value is SocketGuildUser socketGuildUser)
+                        user = socketGuildUser;
+                }
+
                 var gifEmbed = new EmbedBuilder
                 {
                     ImageUrl = gif,
-                    Title = $"Here's your hug {command.User.Username}"
+                    Title = $"Here's your hug {user.Username}"
                 }.Build();
 
                 await command.RespondAsync(
-                text: $"Have a hug {command.User.Mention}",
+                text: $"Have a hug {user.Mention}",
                 allowedMentions: new AllowedMentions(AllowedMentionTypes.Users),
                 embed: gifEmbed);
             }
             else
             {
-                await command.RespondAsync($"Sorry, no hugs available right now {command.User.Mention} 😢");
+                await command.RespondAsync($"Sorry, no hugs available right now {command.User.Mention} 😢", ephemeral: true);
             }
         }
     }

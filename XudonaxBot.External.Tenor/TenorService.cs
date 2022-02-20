@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http.Json;
+using System.Security.Cryptography;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -17,15 +18,12 @@ namespace XudonaxBot.External.Tenor
         private readonly HttpClient _httpClient;
         private readonly BotOptions _botOptions;
         private readonly ILogger<TenorService> _logger;
-        private readonly Random _random;
 
         public TenorService(HttpClient httpClient, IOptions<BotOptions> options, ILogger<TenorService> logger)
         {
             _httpClient = httpClient;
             _botOptions = options.Value;
-            _logger = logger;
-
-            _random = new Random();
+            _logger = logger;;
         }
 
         public async Task<string?> GetRandomGifFor(string searchText)
@@ -41,7 +39,7 @@ namespace XudonaxBot.External.Tenor
                 
                 if (result == null || result.Results.Count == 0 || result.Results[0].Media.Count == 0) return null;
 
-                var resultIndex = _random.Next(0, result.Results.Count);
+                var resultIndex = RandomNumberGenerator.GetInt32(0, result.Results.Count);
 
                 return result.Results[resultIndex].Media[0]["gif"].Url;
             }

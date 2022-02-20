@@ -7,7 +7,7 @@ namespace XudonaxBot.Commands.Implementations
 {
     public class HeadpatCommand : ISlashCommand
     {
-        private const string CatgirlQuery = "anime headpat";
+        private const string SearchQuery = "anime headpat";
 
         private readonly ITenorService _service;
 
@@ -22,7 +22,7 @@ namespace XudonaxBot.Commands.Implementations
 
         public async Task HandleAsync(SocketSlashCommand command)
         {
-            var gif = await _service.GetRandomGifFor(CatgirlQuery);
+            var gif = await _service.GetRandomGifFor(SearchQuery);
 
             if (gif != null)
             {
@@ -39,7 +39,7 @@ namespace XudonaxBot.Commands.Implementations
             } 
             else
             {
-                await command.RespondAsync($"Sorry, no headpats available at this moment {command.User.Mention} 😢");
+                await command.RespondAsync($"Sorry, no headpats available at this moment {command.User.Mention} 😢", ephemeral: true);
             }
         }
     }
